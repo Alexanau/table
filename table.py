@@ -21,25 +21,26 @@ with open(args[0],'r') as fh:
       elif max_width[idx] < len(field):
         max_width[idx] = len(field)
 
-  lb = ''
+  lb = ['']
   for width in max_width:
-    lb += '+' + '-'*(width+2)
-  lb += '+'
+    lb.append('-'*(width+2))
+  lb.append('')
+  linebreak = '+'.join(lb)
   fh.seek(0,0)
-  print lb
+  print linebreak
   for line in fh:
     line = line.rstrip()
     fields = line.split(delim)
-    out = ''
+    out = ['']
     for idx,width in enumerate(max_width):
       if(len(fields)<=idx):
-        out += '| ' + ' '*width + ' '
+        out .append( '| ' + ' '*width + ' ')
       else:
         field = fields[idx].strip()
-        out += '| '+field + ' '*(width-len(field)) + ' '
-    out += '|'
-    print out
-    print lb
+        out .append( '| '+field + ' '*(width-len(field)) + ' ')
+    out.append( '|')
+    print ''.join(out)
+    print linebreak
 
 
 
